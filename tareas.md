@@ -271,7 +271,7 @@ export interface Area {
 
 ### Tareas
 
-## Autenticación y Registro
+## Autenticación y Registro - **Salvador**
 
 - `[x] Pantalla de login (sin funcionalidad o funcionalidad incompleta).`
   - **Completar**: Implementar funcionalidad completa de inicio de sesión
