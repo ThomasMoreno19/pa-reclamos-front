@@ -1,10 +1,10 @@
 import { MainLayout } from "@/components/layout/main-layout"
-import { ClaimForm } from "@/features/dashboard/cliente/reclamos/components/claim-form"
+import { CrearReclamoForm } from "@/features/dashboard/cliente/reclamos/components/crear-reclamo-form"
 
 export default function Home() {
   return (
     <MainLayout>
-      <ClaimForm />
+      <CrearReclamoForm />
     </MainLayout>
   )
 }
