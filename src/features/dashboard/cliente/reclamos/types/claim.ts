@@ -18,10 +18,10 @@ export interface Claim {
 }
 
 export interface CreateClaimPayload {
-  title: string
-  description: string
-  type: ClaimType
-  priority: Priority
-  criticality: Criticality
-  attachments: File[]
+  tipoReclamoId: string
+  proyectoId: string
+  areaId: string
+  descripcion: string
+  prioridad: string
+  criticidad: string
 }
