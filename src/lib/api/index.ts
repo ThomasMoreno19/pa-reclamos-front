@@ -254,7 +254,7 @@ export const api = {
   // CAMBIO ESTADO
   // ------------------------------------------
   cambioEstado: {
-    listarPorReclamo: (reclamoId: string, token: string) =>
+    obtenerHistorialPorReclamo: (reclamoId: string, token: string) =>
       request(`/cambio-estado/${reclamoId}`, {
         method: "GET",
         token,

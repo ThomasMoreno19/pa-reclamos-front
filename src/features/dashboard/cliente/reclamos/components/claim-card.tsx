@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { Claim } from "../types/claim"
 import { STATUS_LABELS } from "../constants/claim-options"
 import { formatDate } from "@/helpers/format"
@@ -23,7 +24,10 @@ export function ClaimCard({ claim }: ClaimCardProps) {
   return (
     <div className="bg-card rounded-xl p-6 space-y-4">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="text-lg font-semibold text-foreground">{claim.title}</h3>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg font-semibold text-foreground">{claim.title}</h3>
+          <p className="text-xs text-muted-foreground font-mono">ID: {claim.id}</p>
+        </div>
         <span className={`px-3 py-1 rounded-full text-xs font-medium ${STATUS_COLORS[claim.status]}`}>
           {STATUS_LABELS[claim.status]}
         </span>
@@ -31,11 +35,19 @@ export function ClaimCard({ claim }: ClaimCardProps) {
 
       <p className="text-muted-foreground text-sm line-clamp-2">{claim.description}</p>
 
-      <div className="flex items-center gap-3 flex-wrap">
-        <span className={`px-2 py-1 rounded text-xs font-medium ${PRIORITY_COLORS[claim.priority]}`}>
-          Prioridad: {claim.priority === "ALTA" ? "Alta" : claim.priority === "MEDIA" ? "Media" : "Baja"}
-        </span>
-        <span className="text-xs text-muted-foreground">{formatDate(claim.createdAt)}</span>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className={`px-2 py-1 rounded text-xs font-medium ${PRIORITY_COLORS[claim.priority]}`}>
+            Prioridad: {claim.priority === "ALTA" ? "Alta" : claim.priority === "MEDIA" ? "Media" : "Baja"}
+          </span>
+          <span className="text-xs text-muted-foreground">{formatDate(claim.createdAt)}</span>
+        </div>
+        <Link
+          href={`/cliente/reclamos/${claim.id}`}
+          className="px-3 py-1.5 text-xs font-medium text-primary hover:text-primary/80 border border-primary/20 rounded hover:bg-primary/5 transition-colors"
+        >
+          Ver Detalles
+        </Link>
       </div>
     </div>
   )

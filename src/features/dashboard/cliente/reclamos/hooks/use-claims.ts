@@ -11,8 +11,12 @@ export function useClaims() {
   const query = useQuery<Claim[]>({
     queryKey: ["claims"],
     queryFn: async () => {
+      console.log('useClaims: Fetching claims with token:', token ? 'present' : 'missing')
+      console.log('useClaims: Backend URL:', process.env.NEXT_PUBLIC_BACKEND_URL)
       if (!token) throw new Error("No authentication token")
-      return claimService.getClaims(token)
+      const claims = await claimService.getClaims(token)
+      console.log('useClaims: Retrieved claims:', claims)
+      return claims
     },
     enabled: !!token,
   })
