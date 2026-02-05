@@ -1,4 +1,7 @@
 "use client"
+
+import { UpdateClaimPayload } from "@/features/dashboard/cliente/reclamos/hooks/use-actualizar-reclamo"
+
 /**
  * API Client Global (versión rápida basada en OpenAPI)
  *
@@ -249,8 +252,6 @@ export const api = {
       }).then(r => r.json())
     },
 
-    },
-
     filtros: (
       params: {
         estado?: string
@@ -308,15 +309,16 @@ export const api = {
 
     actualizar: (
       id: string,
-      data: Record<string, unknown>,
+      data: UpdateClaimPayload,
       token: string,
     ) =>
       request(`/reclamo/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         body: data,
         token,
       }),
 
+  },
   // ------------------------------------------
   // TIPO RECLAMO
   // ------------------------------------------
