@@ -18,7 +18,10 @@ interface ApiClaimResponse {
   createdAt?: string
   updatedAt?: string
   proyecto?: {
-    clienteId?: string
+    cliente: {
+      id?: string
+      nombre?: string
+    }
     nombre?: string
   }
   areaId?: string
@@ -57,7 +60,7 @@ function transformApiClaim(apiClaim: ApiClaimResponse): Claim {
     status: mapApiStatus(apiClaim.estado || "N/A"),
     createdAt: new Date(apiClaim.createdAt || Date.now()),
     updatedAt: new Date(apiClaim.updatedAt || Date.now()),
-    userId: apiClaim.proyecto?.clienteId || "N/A",
+    userId: apiClaim.proyecto?.cliente.id|| "N/A",
     projectName: apiClaim.proyecto?.nombre || "N/A",
   }
 }
@@ -71,7 +74,6 @@ export function useReclamoDetail(reclamoId: string) {
       if (!token) throw new Error("No authentication token")
 
       const response = await api.reclamos.obtenerPorId(reclamoId, token)
-      console.log({ response })
       return transformApiClaim(response as ApiClaimResponse)
     },
     enabled: !!token && !!reclamoId,
