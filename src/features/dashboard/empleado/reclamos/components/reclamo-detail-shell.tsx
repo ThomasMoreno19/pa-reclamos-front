@@ -2,7 +2,7 @@
 
 import { formatDateTime } from "@/helpers/format"
 import { STATUS_LABELS } from "@/features/dashboard/cliente/reclamos/constants/claim-options"
-import { useCambioEstado, type CambioEstado } from "@/features/dashboard/cliente/reclamos/hooks/use-cambio-estado"
+import { useCambioEstado } from "@/features/dashboard/cliente/reclamos/hooks/use-cambio-estado"
 import { useReclamoDetail } from "@/features/dashboard/cliente/reclamos/hooks/use-reclamo-detail"
 import { CambioEstadoForm } from "@/features/dashboard/empleado/reclamos/components/cambio-estado-form"
 import { ReasignarAreaForm } from "./reasignar-area-form"
@@ -24,7 +24,7 @@ const PRIORITY_COLORS: Record<string, string> = {
   BAJA: "bg-green-500/20 text-green-400",
 }
 
-export function ReclamoDetailShell({ reclamoId, variant} : ReclamoDetailShellProps) {
+export function ReclamoDetailShell({ reclamoId, variant }: ReclamoDetailShellProps) {
   const {
     data: reclamo,
     isLoading: reclamoLoading,
@@ -55,6 +55,8 @@ export function ReclamoDetailShell({ reclamoId, variant} : ReclamoDetailShellPro
       </div>
     )
   }
+
+  const isResolved = reclamo.status === "resolved"
 
   return (
     <div className="space-y-8">
@@ -100,15 +102,25 @@ export function ReclamoDetailShell({ reclamoId, variant} : ReclamoDetailShellPro
         </div>
       </div>
 
-      {variant === "cambio-estado" && (
-        <CambioEstadoForm reclamoId={reclamoId} currentStatus={reclamo.status} />
-      )}
+      {isResolved ? (
+        <div className="bg-card rounded-xl p-6">
+          <p className="text-sm text-muted-foreground">
+            Los reclamos resueltos no se pueden modificar.
+          </p>
+        </div>
+      ) : (
+        <>
+          {variant === "cambio-estado" && (
+            <CambioEstadoForm reclamoId={reclamoId} currentStatus={reclamo.status} />
+          )}
 
-      {variant === "reasignar-area" && (
-        <ReasignarAreaForm
-          reclamoId={reclamoId}
-          currentAreaId={reclamo.areaId || currentCambioEstado?.area?.id}
-        />
+          {variant === "reasignar-area" && (
+            <ReasignarAreaForm
+              reclamoId={reclamoId}
+              currentAreaId={reclamo.areaId || currentCambioEstado?.area?.id}
+            />
+          )}
+        </>
       )}
 
       <div className="space-y-4">

@@ -21,7 +21,6 @@ const PRIORITY_COLORS: Record<string, string> = {
 }
 
 export function ClaimCardEmployee({ claim }: ClaimCardEmployeeProps) {
-  const isResolved = claim.status === "resolved"
   const clientLabel = claim.clientName || claim.userId || "Sin cliente"
 
   return (
@@ -49,22 +48,12 @@ export function ClaimCardEmployee({ claim }: ClaimCardEmployeeProps) {
           <span className="text-xs text-muted-foreground">{formatDate(claim.createdAt)}</span>
         </div>
         <div className="flex items-center gap-2">
-          {isResolved ? (
-            <button
-              type="button"
-              disabled
-              className="px-3 py-1.5 text-xs font-medium text-muted-foreground border border-border rounded cursor-not-allowed opacity-60"
-            >
-              Cambiar estado
-            </button>
-          ) : (
-            <Link
-              href={`/cambio-estado/${claim.id}`}
-              className="px-3 py-1.5 text-xs font-medium text-primary hover:text-primary/80 border border-primary/20 rounded hover:bg-primary/5 transition-colors"
-            >
-              Cambiar estado
-            </Link>
-          )}
+          <Link
+            href={`/cambio-estado/${claim.id}`}
+            className="px-3 py-1.5 text-xs font-medium text-primary hover:text-primary/80 border border-primary/20 rounded hover:bg-primary/5 transition-colors"
+          >
+            Cambiar estado
+          </Link>
           <Link
             href={`/reasignar-area/${claim.id}`}
             className="px-3 py-1.5 text-xs font-medium text-primary hover:text-primary/80 border border-primary/20 rounded hover:bg-primary/5 transition-colors"
